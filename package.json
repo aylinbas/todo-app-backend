@@ -1,0 +1,34 @@
+{
+  "name": "todoappbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aylinbas/todoAppBackend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aylinbas/todoAppBackend/issues"
+  },
+  "homepage": "https://github.com/aylinbas/todoAppBackend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "random-id": "^1.0.4",
+    "socket.io": "^4.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-jest": "^27.4.4",
+    "jest": "^27.4.3",
+    "supertest": "^6.1.6"
+  }
+}
