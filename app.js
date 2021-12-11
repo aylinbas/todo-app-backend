@@ -1,22 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const client = require("./redis");
+const uniqid = require("uniqid");
 
 var corsOptions = {
-  origin: "http://localhost:3001",
+  origin: "http://localhost:3002",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-  console.log("deneme");
+app.get("/", async (req, res) => {
   res.send("<h1>Hello world</h1>");
 });
-const todos = [
-  { id: "0a", title: "deneme1", description: "description1", isDone: false },
-  { id: "1b", title: "deeme2", description: "description2", isDone: false },
-  { id: "2c", title: "deneme3", description: "description3", isDone: false },
-];
+const todos = [];
 
 app.use(express.json());
 app.post("/", async (req, res) => {
@@ -25,9 +22,22 @@ app.post("/", async (req, res) => {
     res.sendStatus(400);
     return;
   }
-
-  res.send({ todos: todos });
+  client.hset(
+    "todo",
+    uniqid(),
+    JSON.stringify({
+      title,
+      description,
+      isDone,
+    })
+  );
+  client.hgetall("users:123", function (err, obj) {
+    console.dir(obj);
+  });
+  client.hgetall("todo", function (err, obj) {
+    res.send({ todos: obj });
+  });
 });
-app.listen(8080, () => console.log("listening on port 8080"));
+app.listen(3005, () => console.log("listening on port 8080"));
 
 module.exports = app;
