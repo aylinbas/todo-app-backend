@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+
   "scripts": {
     "start": "node app.js",
     "start:dev": "nodemon app.js"
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/aylinbas/todoAppBackend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "random-id": "^1.0.4",
     "socket.io": "^4.4.0"
