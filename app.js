@@ -7,12 +7,18 @@ const uniqid = require("uniqid");
 const PORT = 8080;
 const HOST = "0.0.0.0";
 
-// var corsOptions = {
-//   origin: "https://3001-1e316105-1adc-490c-b678-5d7376cc7965.cs-europe-west4-bhnf.cloudshell.dev/?authuser=0",
-//   optionsSuccessStatus: 200,
-// };
-app.use(cors());
+var originsWhitelist = [
+  "https://3001-1e316105-1adc-490c-b678-5d7376cc7965.cs-europe-west4-bhnf.cloudshell.dev/?authuser=0",
+];
+var corsOptions = {
+  origin: function (origin, callback) {
+    var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+    callback(null, isWhitelisted);
+  },
+  credentials: true,
+};
 
+app.use(cors(corsOptions));
 app.get("/", async (req, res) => {
   client.hgetall("todo", function (err, obj) {
     res.send({ todos: obj });
