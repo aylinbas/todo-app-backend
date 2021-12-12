@@ -8,7 +8,8 @@ const PORT = 8080;
 const HOST = "0.0.0.0";
 
 var corsOptions = {
-  origin: "http://localhost:3002",
+  origin:
+    "https://3001-1e316105-1adc-490c-b678-5d7376cc7965.cs-europe-west4-bhnf.cloudshell.dev/?authuser=0",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
