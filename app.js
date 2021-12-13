@@ -14,37 +14,37 @@ app.use(
   })
 );
 
-// app.get("/", async (req, res) => {
-//   client.hgetall("todo", function (err, obj) {
-//     res.send({ todos: obj });
-//   });
-//   // client.flushdb(function (err, succeeded) {
-//   //   console.log(succeeded);
-//   // });
-// });
+app.get("/", async (req, res) => {
+  client.hgetall("todo", function (err, obj) {
+    res.send({ todos: obj });
+  });
+  // client.flushdb(function (err, succeeded) {
+  //   console.log(succeeded);
+  // });
+});
 
 app.use(express.json());
-// app.post("/", async (req, res) => {
-//   const { title, description, isDone } = req.body;
-//   if (!title || !description || !isDone) {
-//     res.sendStatus(400);
-//     return;
-//   }
+app.post("/", async (req, res) => {
+  const { title, description, isDone } = req.body;
+  if (!title || !description || !isDone) {
+    res.sendStatus(400);
+    return;
+  }
 
-//   client.hset(
-//     "todo",
-//     uniqid(),
-//     JSON.stringify({
-//       title,
-//       description,
-//       isDone,
-//     })
-//   );
+  client.hset(
+    "todo",
+    uniqid(),
+    JSON.stringify({
+      title,
+      description,
+      isDone,
+    })
+  );
 
-//   client.hgetall("todo", function (err, obj) {
-//     res.send({ todos: obj });
-//   });
-// });
+  client.hgetall("todo", function (err, obj) {
+    res.send({ todos: obj });
+  });
+});
 app.listen(PORT, HOST, () => console.log("listening on port 8080"));
 
 module.exports = app;
