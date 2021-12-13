@@ -7,31 +7,36 @@ const uniqid = require("uniqid");
 const PORT = 8080;
 const HOST = "0.0.0.0";
 
-app.use(cors());
+// app.use(cors());
 
-exports.corsEnabledFunction = (req, res) => {
-  // Set CORS headers for preflight requests
-  // Allows GETs from any origin with the Content-Type header
-  // and caches preflight response for 3600s
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
-  res.set("Access-Control-Allow-Origin", "*");
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
 
-  if (req.method === "OPTIONS") {
-    // Send response to OPTIONS requests
-    res.set("Access-Control-Allow-Methods", "GET");
-    res.set("Access-Control-Allow-Headers", "Content-Type");
-    res.set("Access-Control-Max-Age", "3600");
-    res.status(204).send("");
-  } else {
-    res.send("Hello World!");
-  }
-};
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
 
 app.get("/", async (req, res) => {
   client.hgetall("todo", function (err, obj) {
     res.send({ todos: obj });
   });
-  // res.send("<h1>Hello world</h1>");
   // client.flushdb(function (err, succeeded) {
   //   console.log(succeeded);
   // });
