@@ -7,12 +7,7 @@ const uniqid = require("uniqid");
 const PORT = 8080;
 const HOST = "0.0.0.0";
 
-app.use(
-  cors({
-    origin:
-      " https://8080-1e316105-1adc-490c-b678-5d7376cc7965.cs-europe-west4-bhnf.cloudshell.dev/?authuser=0",
-  })
-);
+app.use(cors());
 
 app.get("/", async (req, res) => {
   client.hgetall("todo", function (err, obj) {
