@@ -7,17 +7,16 @@ const uniqid = require("uniqid");
 const PORT = 8080;
 const HOST = "0.0.0.0";
 
-const whitelist = ["https://todo-app-frontend-335117.uc.r.appspot.com/"];
-const corsOptions = {
-  credentials: true, // This is important.
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin)) return callback(null, true);
-
-    callback(new Error("Not allowed by CORS"));
-  },
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "DELETE, PUT, GET, POST");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.get("/", async (req, res) => {
   client.hgetall("todo", function (err, obj) {
