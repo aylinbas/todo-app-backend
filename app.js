@@ -7,16 +7,11 @@ const uniqid = require("uniqid");
 const PORT = 8080;
 const HOST = "0.0.0.0";
 
-app.use(cors());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "DELETE, PUT, GET, POST");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(
+  cors({
+    origin: "https://todo-app-frontend-335117.uc.r.appspot.com/",
+  })
+);
 
 app.get("/", async (req, res) => {
   client.hgetall("todo", function (err, obj) {
