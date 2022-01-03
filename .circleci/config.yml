@@ -1,12 +1,11 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@3.0.1
-
 jobs:
   build:
     working_directory: ~/backend_api
     executor: node/default
+    docker:
+      - image: google/cloud-sdk
     steps:
       - checkout
       - node/install-npm
@@ -18,10 +17,11 @@ jobs:
           root: .
           paths:
             - .
+  
 
   test:
     docker:
-      - image: cimg/node:current
+      - image: img/node:current
     steps:
       - attach_workspace:
           at: .
