@@ -2,11 +2,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@3.0.1
-  
+
 jobs:
-  build_and_deploy:     
-    docker:
-        - image: google/cloud-sdk:slim
   build:
     working_directory: ~/backend_api
     executor: node/default
@@ -24,7 +21,7 @@ jobs:
 
   test:
     docker:
-      - image: img/node:current
+      - image: google/cloud-sdk:slim
     steps:
       - attach_workspace:
           at: .
