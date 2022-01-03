@@ -22,9 +22,9 @@ app.get("/", async (req, res) => {
   client.hgetall("todo", function (err, obj) {
     res.send({ todos: obj });
   });
-  // client.flushdb(function (err, succeeded) {
-  //   console.log(succeeded);
-  // });
+  client.flushdb(function (err, succeeded) {
+    console.log(succeeded);
+  });
 });
 
 app.use(express.json());
