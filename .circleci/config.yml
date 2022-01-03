@@ -2,13 +2,14 @@ version: 2.1
 
 orbs:
   node: circleci/node@3.0.1
-
+  
 jobs:
+  build_and_deploy:     
+    docker:
+        - image: google/cloud-sdk:slim
   build:
     working_directory: ~/backend_api
     executor: node/default
-    docker:
-      - image: google/cloud-sdk
     steps:
       - checkout
       - node/install-npm
@@ -31,5 +32,9 @@ jobs:
           name: Test
           command: npx jest
 
-
-
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+     
