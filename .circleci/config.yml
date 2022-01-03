@@ -21,10 +21,10 @@ jobs:
       - run: npx jest
 
       - run:
-        name: deploy to app engine
-        command : |
-          gcloud config set project todo-app-backend-334910
-          gcloud app deploy
+          name: deploy to app engine
+          command : |
+            gcloud config set project todo-app-backend-334910
+            gcloud app deploy
   test:
     docker:
       - image: google/cloud-sdk:slim
